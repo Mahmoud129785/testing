@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F1ECEA">
+  <meta name="description" content="Tidewell — Tides in Motion. A coastal motion studio building real digital products.">
+  <title>Tidewell — Tides in Motion</title>
+  <style>
+    @font-face {
+      font-family: Inter;
+      src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+    }
+    :root {
+      --bg: #F1ECEA;
+      --ink: #1F2430;
+      --muted: #938B90;
+      --dark: #12141B;
+      --sky1: #C0C9D9;
+      --sky2: #EFCEBE;
+      --peach: #DDAD95;
+      --lavender: #B0AEC6;
+      --harbour: #7DA3BB;
+      --sand: #EBC9AE;
+      --rose: #BF9FA5;
+      --slate: #4C6165;
+      --ice: #BAD9E6;
+      --subgrey: #5B5A62;
+      --skygrey: #8D8893;
+      --manifestogrey: #6E7180;
+      --cta-hover: #2E3546;
+      --u: 1;
+      --n: 1;
+      --hfs: 90px;
+      --ic: 55.8px;
+      --pfs: 48px;
+      --sfs: 60px;
+      --mfs: 72px;
+      --camw: 280px;
+      --cw: 218;
+      --nav-h: 86px;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--bg); scroll-behavior: auto; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body.dark-nav { background: var(--dark); }
+    a { color: inherit; }
+    button { font: inherit; }
+    .nav {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(86 * var(--n) * 1px);
+      padding: 0 calc(40 * var(--n) * 1px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      pointer-events: none;
+      color: var(--ink);
+      transition: color .35s ease;
+    }
+    .nav > * { pointer-events: auto; }
+    .logo {
+      width: calc(46 * var(--n) * 1px);
+      height: calc(46 * var(--n) * 1px);
+      display: block;
+      flex: 0 0 auto;
+      color: var(--ink);
+      transition: color .35s ease, opacity .45s cubic-bezier(.22,1,.36,1), transform .45s cubic-bezier(.22,1,.36,1);
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    .intro-ready .logo { opacity: 1; transform: translateY(0); }
+    .logo svg { display: block; width: 100%; height: 100%; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: calc(28 * var(--n) * 1px);
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: calc(15 * var(--n) * 1px);
+      letter-spacing: -.005em;
+    }
+    .nav-links a {
+      position: relative;
+      white-space: nowrap;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: color .2s ease, opacity .45s cubic-bezier(.22,1,.36,1), transform .45s cubic-bezier(.22,1,.36,1);
+    }
+    .intro-ready .nav-links a { opacity: 1; transform: translateY(0); }
+    .nav-links a:hover, .nav-links a.current { color: var(--ink); }
+    .collections-btn {
+      height: calc(42 * var(--n) * 1px);
+      padding: 0 calc(16 * var(--n) * 1px) 0 calc(20 * var(--n) * 1px);
+      border: 0;
+      border-radius: calc(12 * var(--n) * 1px);
+      background: var(--ink);
+      color: var(--bg);
+      display: inline-flex;
+      align-items: center;
+      gap: calc(12 * var(--n) * 1px);
+      font-size: calc(15 * var(--n) * 1px);
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      clip-path: inset(0 100% 0 0 round calc(12 * var(--n) * 1px));
+      transition: background .2s ease, color .35s ease, clip-path .75s cubic-bezier(.22,1,.36,1);
+    }
+    .intro-ready .collections-btn { clip-path: inset(0 0 0 0 round calc(12 * var(--n) * 1px)); }
+    .collections-btn:hover { background: var(--cta-hover); }
+    .collections-btn svg { width: calc(16 * var(--n) * 1px); height: calc(16 * var(--n) * 1px); }
+    .dark-nav .logo { color: white; }
+    .dark-nav .nav-links { color: #8C8F9A; }
+    .dark-nav .nav-links a:hover, .dark-nav .nav-links a.current { color: white; }
+    .dark-nav .collections-btn { background: white; color: var(--ink); }
+    .dark-nav .collections-btn:hover { background: #E6E5E9; }
+
+    #story { position: relative; height: 1600vh; }
+    .hero {
+      position: absolute;
+      z-index: 9;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 1;
+    }
+    .headline-holder {
+      position: absolute;
+      top: 41%;
+      left: 0;
+      width: 100%;
+      height: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+    .hero-headline {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: max-content;
+      min-height: var(--hfs);
+      margin: 0;
+      color: var(--ink);
+      font-size: var(--hfs);
+      font-weight: 560;
+      letter-spacing: -.035em;
+      line-height: 1;
+      white-space: nowrap;
+      transition: transform .45s cubic-bezier(.25,.75,.2,1);
+    }
+    .hero-word { display: inline-flex; align-items: center; justify-content: center; }
+    .hero-letter {
+      display: inline-block;
+      min-width: .16em;
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+      transition: opacity .3s ease, clip-path .42s cubic-bezier(.25,.75,.2,1);
+    }
+    .hero-letter.space { min-width: .27em; }
+    .hero-letter.visible { opacity: 1; clip-path: inset(0 0 0 0); }
+    .pixel-icon {
+      display: inline-block;
+      width: var(--ic);
+      height: var(--ic);
+      flex: 0 0 var(--ic);
+      image-rendering: pixelated;
+      transform-origin: center;
+      opacity: 0;
+      transform: scale(.08) rotate(-6deg);
+      transition: opacity .12s ease, transform .32s cubic-bezier(.175,.885,.32,1.275);
+    }
+    .pixel-icon.visible { opacity: 1; transform: scale(1) rotate(0); }
+    .icon-layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: calc(var(--ic) * .2);
+      pointer-events: none;
+    }
+    .icon-layer .pixel-icon:last-child { margin-left: calc(var(--ic) * 1.6); }
+    .plane {
+      position: fixed;
+      z-index: 12;
+      left: 0;
+      top: 0;
+      width: calc(62 * var(--u) * 1px);
+      height: calc(62 * var(--u) * 1px);
+      opacity: 0;
+      pointer-events: none;
+      background-repeat: no-repeat;
+      transform-origin: center;
+      will-change: transform, opacity;
+    }
+    .plane.flying { opacity: 1; }
+
+    .pinned-stage {
+      position: sticky;
+      z-index: 1;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .process-block {
+      position: absolute;
+      z-index: 4;
+      top: 20%;
+      left: 0;
+      width: 100%;
+      padding: 0 16px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(18px);
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+    .process-headline {
+      max-width: 1050px;
+      margin: 0 auto;
+      color: var(--ink);
+      font-size: var(--pfs);
+      font-weight: 500;
+      letter-spacing: -.03em;
+      line-height: 1.12;
+    }
+    .process-line { display: block; }
+    .process-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(.35em);
+      filter: blur(6px);
+      transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1), filter .55s cubic-bezier(.22,1,.36,1);
+    }
+    .process-block.reveal .process-word { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .process-word.muted { color: var(--muted); }
+    .process-chip {
+      display: inline-block;
+      width: 1.05em;
+      height: .92em;
+      margin: 0 .14em;
+      border-radius: .16em;
+      vertical-align: -.12em;
+      background-repeat: no-repeat;
+      background-size: 200% 200%;
+      background-position: 100% 0;
+      box-shadow: 0 .06em .18em rgba(31,36,48,.18), inset 0 0 0 1px rgba(255,255,255,.35);
+      opacity: 0;
+      transform: translateY(.35em) scale(.8);
+      filter: blur(6px);
+      transition: opacity .55s .22s cubic-bezier(.22,1,.36,1), transform .55s .22s cubic-bezier(.22,1,.36,1), filter .55s .22s cubic-bezier(.22,1,.36,1);
+    }
+    .process-block.reveal .process-chip { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    .process-subline {
+      margin-top: calc(var(--pfs) * .42);
+      color: var(--subgrey);
+      font-size: calc(var(--pfs) * .27);
+      font-weight: 400;
+      letter-spacing: -.01em;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .5s .7s ease, transform .5s .7s ease;
+    }
+    .process-cta {
+      margin-top: calc(var(--pfs) * .38);
+      height: calc(var(--pfs) * .64);
+      padding: 0 calc(var(--pfs) * .28) 0 calc(var(--pfs) * .32);
+      border: 0;
+      border-radius: calc(var(--pfs) * .2);
+      display: inline-flex;
+      align-items: center;
+      gap: calc(var(--pfs) * .16);
+      background: var(--ink);
+      color: var(--bg);
+      font-size: calc(var(--pfs) * .25);
+      font-weight: 500;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .5s .85s ease, transform .5s .85s ease, background .2s ease;
+    }
+    .process-cta:hover { background: var(--cta-hover); }
+    .process-cta svg { width: calc(var(--pfs) * .34); height: calc(var(--pfs) * .34); }
+    .process-block.reveal .process-subline, .process-block.reveal .process-cta { opacity: 1; transform: translateY(0); }
+
+    .cards-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+    .card {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: calc(var(--cw) * 1px);
+      height: calc(var(--cw) * 1.32px);
+      border-radius: calc(var(--cw) * .075px);
+      background-color: #d7c9ca;
+      background-repeat: no-repeat;
+      background-size: 200% 200%;
+      box-shadow: 0 calc(var(--cw) * .03px) calc(var(--cw) * .09px) rgba(31,36,48,.16), inset 0 0 0 1px rgba(255,255,255,.35);
+      transform: translate3d(calc(var(--x) * 1px), calc(var(--y) * 1px), 0) translate(-50%, -50%) rotate(calc(var(--r) * 1deg)) scale(var(--s));
+      opacity: var(--o);
+      will-change: transform, opacity;
+      overflow: hidden;
+    }
+    .card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 -30px 35px rgba(31,36,48,.05); }
+
+    .sky-panel {
+      position: absolute;
+      z-index: 6;
+      inset: 0;
+      overflow: hidden;
+      background: var(--sky1);
+      clip-path: inset(40% 41.5% 40% round 14px);
+      opacity: 0;
+      pointer-events: none;
+      will-change: clip-path, opacity;
+    }
+    .sky-plate, .sky-video { position: absolute; inset: -4%; width: 108%; height: 108%; object-fit: cover; }
+    .sky-plate { background: center / cover no-repeat; transform: scale(1.18); }
+    .sky-video { opacity: 0; transform: scale(1.18); filter: saturate(.92); transition: opacity 1.2s ease; }
+    .sky-panel.video-ready .sky-video { opacity: .78; }
+    .sky-panel::after { content: ""; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(192,201,217,.2), rgba(239,206,190,.12)); pointer-events: none; }
+    .camera {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      top: 51%;
+      width: var(--camw);
+      aspect-ratio: 1;
+      transform: translate(-50%,-50%) scale(.5) rotateY(-10deg);
+      transform-origin: 54% 31%;
+      background: center / 100% 100% no-repeat;
+      filter: drop-shadow(0 calc(var(--camw) * .12) calc(var(--camw) * .08) rgba(60,52,70,.22));
+      will-change: transform;
+    }
+    .sky-words { position: absolute; z-index: 3; inset: 0; font-size: var(--sfs); line-height: 1; letter-spacing: -.03em; pointer-events: none; }
+    .sky-line { position: absolute; display: flex; align-items: baseline; gap: .18em; }
+    .sky-line.top { left: calc(40 * var(--n) * 1px); top: calc(104 * var(--n) * 1px); }
+    .sky-line.bottom { right: calc(40 * var(--n) * 1px); bottom: calc(46 * var(--n) * 1px); justify-content: flex-end; }
+    .sky-word { position: static; display: inline-block; opacity: 0; transform: translateY(.3em); filter: blur(6px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1), filter .6s cubic-bezier(.22,1,.36,1); }
+    .sky-word.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+    .sky-word.grey { color: var(--skygrey); }
+    .sky-word.tl-1, .sky-word.tl-2, .sky-word.tl-3, .sky-word.br-1, .sky-word.br-2, .sky-word.br-3, .sky-word.br-4 { left: auto; right: auto; top: auto; bottom: auto; }
+    .blackout { position: absolute; z-index: 8; inset: 0; background: var(--dark); opacity: 0; pointer-events: none; }
+
+    #manifesto { position: relative; height: 950vh; background: var(--dark); color: white; }
+    .manifesto-stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+    .manifesto-track {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      display: flex;
+      align-items: center;
+      gap: calc(var(--mfs) * .32);
+      width: max-content;
+      min-width: max-content;
+      padding: 0 0 0 6vw;
+      white-space: nowrap;
+      font-size: var(--mfs);
+      line-height: 1;
+      letter-spacing: -.03em;
+      transform: translate3d(var(--track-x, 6vw), -50%, 0);
+      will-change: transform;
+    }
+    .manifesto-item { position: relative; display: inline-flex; flex: 0 0 auto; align-items: center; }
+    .intro-block { display: flex; flex-direction: column; gap: .26em; font-size: .72em; }
+    .intro-row { display: block; }
+    .grey-word { color: var(--manifestogrey); }
+    .label { position: absolute; z-index: 2; display: inline-block; padding: .3em .6em; border-radius: .16em; color: var(--ink); font-size: .24em; line-height: 1; letter-spacing: -.02em; box-shadow: 0 .12em .3em rgba(0,0,0,.35); }
+    .label.motion { top: -.95em; left: 0; background: var(--sky2); transform: rotate(-6deg); }
+    .label.tide { top: -1.1em; left: 3.4em; background: var(--sand); transform: rotate(-4deg); }
+    .label.coast { bottom: -1em; left: .6em; background: var(--ice); transform: rotate(4deg); }
+    .big-label { padding: .28em .62em .3em; border-radius: .16em; font-size: .42em; line-height: .9; box-shadow: 0 .12em .3em rgba(0,0,0,.35); }
+    .tidal-stack { flex-direction: column; align-items: flex-start; gap: .08em; }
+    .tidal-stack .big-label:first-child { background: var(--peach); color: var(--ink); transform: rotate(-8deg); position: relative; }
+    .tidal-stack .big-label:first-child::after { content: ""; position: absolute; width: .15em; height: .15em; border-radius: 50%; background: var(--ink); top: -.12em; right: -.1em; }
+    .tidal-stack .big-label:last-child { background: var(--lavender); color: var(--ink); transform: rotate(6deg); margin-left: .1em; }
+    .object { display: inline-block; flex: 0 0 auto; width: 1em; aspect-ratio: 1; background-repeat: no-repeat; background-color: transparent; transform: rotate(var(--rest-rotate, 0deg)) scale(0); filter: drop-shadow(0 .12em .09em rgba(0,0,0,.22)); }
+    .object.shell { width: 1.25em; --rest-rotate: -12deg; }
+    .object.shell-small { width: 1.05em; --rest-rotate: 10deg; }
+    .object.pearl { width: .8em; --rest-rotate: 0deg; }
+    .object.pearl-small { width: .5em; --rest-rotate: 0deg; }
+    .object.capsule { width: 1.05em; --rest-rotate: -8deg; }
+    .object.plane-object { width: 1.2em; --rest-rotate: 6deg; }
+    .sparkle { width: .34em; height: .34em; fill: #F4E3D3; transform: rotate(-10deg) scale(0); }
+    .manifesto-item .chars { display: inline-flex; }
+    .char { display: inline-block; opacity: 0; transform: translateY(.55em) rotate(14deg); transform-origin: bottom left; }
+    .manifesto-item.is-visible .char { animation: drop-char .5s cubic-bezier(.22,1,.36,1) forwards; animation-delay: calc(var(--char-i) * 35ms); }
+    .manifesto-item.is-visible .object { animation: pop-object .5s cubic-bezier(.175,.885,.32,1.275) 120ms forwards; }
+    .manifesto-item.is-visible .sparkle { animation: pop-sparkle .5s cubic-bezier(.175,.885,.32,1.275) 120ms forwards; }
+    .spacer { width: 30vw; height: 1px; }
+    @keyframes drop-char { to { opacity: 1; transform: translateY(0) rotate(0); } }
+    @keyframes pop-object { 0% { opacity: 0; transform: rotate(calc(var(--rest-rotate, 0deg) - 14deg)) scale(0); } 75% { opacity: 1; transform: rotate(var(--rest-rotate, 0deg)) scale(1.15); } 100% { opacity: 1; transform: rotate(var(--rest-rotate, 0deg)) scale(1); } }
+    @keyframes pop-sparkle { 0% { opacity: 0; transform: rotate(-30deg) scale(0); } 75% { opacity: 1; transform: rotate(4deg) scale(1.15); } 100% { opacity: 1; transform: rotate(0) scale(1); } }
+
+    @media (max-width: 819px) and (orientation: portrait) {
+      .nav { padding: 0 16px; }
+      .nav-links { display: none; }
+      .process-block { top: 17%; }
+      .process-headline { max-width: 95vw; }
+      .sky-panel { clip-path: inset(42% 29% 42% round 14px); }
+      .sky-line.top { left: 16px; top: 84px; }
+      .sky-line.bottom { right: 16px; bottom: 28px; max-width: calc(100% - 32px); flex-wrap: wrap; }
+      .manifesto-track { padding-left: 8vw; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+      .hero-letter { opacity: 1; clip-path: inset(0); }
+      .pixel-icon { opacity: 0; }
+      .process-word, .process-chip, .process-subline, .process-cta { opacity: 1; transform: none; filter: none; }
+      .card { transition: none; }
+      .sky-video { display: none; }
+      #story { height: 100vh; }
+      #manifesto { height: 100vh; }
+      .pinned-stage, .manifesto-stage { position: relative; }
+      .sky-panel { clip-path: inset(0); opacity: 1; }
+      .sky-plate { transform: none; }
+      .camera { transform: translate(-50%,-50%) scale(1); }
+      .blackout { opacity: 0; }
+      .manifesto-track { transform: translate3d(8vw,-50%,0); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav" aria-label="Primary navigation">
+    <a class="logo" href="#top" aria-label="Tidewell home">
+      <svg viewBox="0 0 48 48" role="img" aria-hidden="true">
+        <circle cx="24" cy="12.5" r="8.5" fill="currentColor"/>
+        <path d="M6 27c6-5 13-5 18 0s12 5 18 0v6c-6 5-13 5-18 0S12 28 6 33z" fill="currentColor"/>
+        <path d="M10 39c5-3.6 10-3.6 14 0s9 3.6 14 0" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <div class="nav-links">
+      <a href="#top" data-jump="0">Home</a>
+      <a href="#process" data-jump=".2">Our Team</a>
+      <a href="#process" data-jump=".2">Cases</a>
+      <a href="#product" data-jump=".74">Features</a>
+      <a href="#product" data-jump=".74">Pricing</a>
+      <a href="#manifesto" data-jump="manifesto">Contact</a>
+    </div>
+    <button class="collections-btn" type="button" data-jump=".74">View Collections
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </nav>
+
+  <main id="top">
+    <section id="story" aria-label="Tidewell story">
+      <header class="hero" id="hero">
+        <div class="headline-holder">
+          <h1 class="hero-headline" id="heroHeadline" aria-label="Tides in Motion">
+            <span class="hero-word" id="heroWord"></span>
+            <span class="icon-layer" id="iconLayer" aria-hidden="true"></span>
+          </h1>
+        </div>
+        <div class="plane" id="plane" aria-hidden="true"></div>
+      </header>
+      <div class="pinned-stage" id="stage">
+        <section class="process-block" id="process" aria-label="Our process">
+          <div class="process-headline">
+            <span class="process-line">
+              <span class="process-word muted">From</span>
+              <span class="process-word">shore</span>
+              <span class="process-chip" aria-label="sailboat image"></span>
+              <span class="process-word muted">to</span>
+              <span class="process-word">product</span>
+            </span>
+            <span class="process-line">
+              <span class="process-word">built</span>
+              <span class="process-word muted">through</span>
+              <span class="process-word">real</span>
+              <span class="process-word">process</span>
+            </span>
+          </div>
+          <div class="process-subline">Turning concepts into working digital products.</div>
+          <button class="process-cta" type="button" data-jump=".74">View All Collections
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </section>
+        <div class="cards-layer" id="cardsLayer" aria-hidden="true"></div>
+        <section class="sky-panel" id="skyPanel" aria-label="Product in motion">
+          <div class="sky-plate" id="skyPlate"></div>
+          <video class="sky-video" id="skyVideo" muted loop playsinline preload="none" aria-hidden="true"></video>
+          <div class="camera" id="camera"></div>
+          <div class="sky-words" aria-hidden="true">
+            <div class="sky-line top"><span class="sky-word tl-1">Not</span><span class="sky-word grey tl-2">just</span><span class="sky-word tl-3">visuals</span></div>
+            <div class="sky-line bottom"><span class="sky-word br-1">Real</span><span class="sky-word grey br-2">products</span><span class="sky-word br-3">that</span><span class="sky-word grey br-4">run</span></div>
+          </div>
+        </section>
+        <div class="blackout" id="blackout"></div>
+      </div>
+    </section>
+
+    <section id="manifesto" aria-label="Tidewell manifesto">
+      <div class="manifesto-stage">
+        <div class="manifesto-track" id="manifestoTrack">
+          <div class="manifesto-item intro-block" data-item>
+            <span class="label motion">motion studio</span><span class="label tide">since the tide turned</span><span class="label coast">coast to coast</span>
+            <div class="intro-row chars"><span class="grey-word">Designing</span> motion</div>
+            <div class="intro-row chars">that moves <span class="grey-word">people.</span></div>
+          </div>
+          <div class="manifesto-item" data-item><span class="object shell" data-object></span></div>
+          <div class="manifesto-item chars" data-item>Crafting</div>
+          <div class="manifesto-item tidal-stack" data-item><span class="big-label">tidal</span><span class="big-label">and immersive</span></div>
+          <div class="manifesto-item chars" data-item>animation&nbsp;experiences.</div>
+          <div class="manifesto-item" data-item>
+            <svg class="sparkle" data-object viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0c.8 5.6 3.6 8.6 10 10-6.4 1.4-9.2 4.4-10 10-.8-5.6-3.6-8.6-10-10 6.4-1.4 9.2-4.4 10-10z"/></svg>
+            <span class="object pearl" data-object></span>
+          </div>
+          <div class="manifesto-item chars" data-item>The ocean – is a.</div>
+          <div class="manifesto-item" data-item>
+            <span class="big-label" style="background:#EFCEBE;color:#1F2430;transform:rotate(-8deg)">tidal</span>
+            <span class="object shell-small" data-object></span><span class="object pearl-small" data-object></span>
+            <svg class="sparkle" data-object viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0c.8 5.6 3.6 8.6 10 10-6.4 1.4-9.2 4.4-10 10-.8-5.6-3.6-8.6-10-10 6.4-1.4 9.2-4.4 10-10z"/></svg>
+            <span class="big-label" style="background:#B0AEC6;color:#1F2430;transform:rotate(3deg)">coastal</span>
+          </div>
+          <div class="manifesto-item" data-item>
+            <span class="chars"><span class="grey-word">and</span>&nbsp;<span class="grey-word">a</span></span>
+            <span class="big-label" style="background:#BAD9E6;color:#1F2430;transform:rotate(-10deg);margin-left:.16em">drift</span>
+            <span class="object capsule" data-object></span>
+          </div>
+          <div class="manifesto-item chars" data-item>atelier&nbsp;that&nbsp;brings&nbsp;brands,&nbsp;stories,&nbsp;<span class="grey-word">and</span>&nbsp;experiences&nbsp;<span class="grey-word">to</span>&nbsp;<span class="grey-word">life</span>&nbsp;<span class="grey-word">through</span>&nbsp;art,&nbsp;design,&nbsp;<span class="grey-word">and</span>&nbsp;technology.</div>
+          <div class="spacer" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const prefix = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/';
+      const files = {
+        gridA: 'hf_20261118_061436_77e1a13d-60a0-4746-bf7b-53b2365609f5.png',
+        gridB: 'hf_20261118_061435_8a1828bc-a149-44ea-80fd-c4c33eef7407.png',
+        gridC: 'hf_20261118_061433_df51e37b-d8b8-40b1-9830-01ea6c20c83d.png',
+        sky: 'hf_20261118_061434_a222c9d2-715b-44b7-873f-0548d1624211.png',
+        camera: 'hf_20261118_061547_10365665-40d3-4390-944f-7bcb10dc6d4a.png',
+        objects: 'hf_20261118_061547_979f8673-f904-4102-90a0-6458bce33bc8.png'
+      };
+      const skyVideo = prefix + 'hf_20261118_065029_a6ae2ebb-cd79-41fd-ae60-6b66fdda04ee.mp4';
+      const proxy = (file, width) => `https://images.higgs.ai/?default=1&output=webp&url=${encodeURIComponent(prefix + file)}&w=${width}&q=85`;
+      const root = document.documentElement;
+      const body = document.body;
+      const story = document.getElementById('story');
+      const stage = document.getElementById('stage');
+      const hero = document.getElementById('hero');
+      const heroHeadline = document.getElementById('heroHeadline');
+      const heroWord = document.getElementById('heroWord');
+      const iconLayer = document.getElementById('iconLayer');
+      const plane = document.getElementById('plane');
+      const cardsLayer = document.getElementById('cardsLayer');
+      const process = document.getElementById('process');
+      const skyPanel = document.getElementById('skyPanel');
+      const skyPlate = document.getElementById('skyPlate');
+      const skyVideoEl = document.getElementById('skyVideo');
+      const camera = document.getElementById('camera');
+      const blackout = document.getElementById('blackout');
+      const manifesto = document.getElementById('manifesto');
+      const manifestoTrack = document.getElementById('manifestoTrack');
+      const skyWords = [...document.querySelectorAll('.sky-word')];
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
+      const mobileQuery = () => window.innerWidth < 820 && window.innerWidth < window.innerHeight * 1.1;
+      const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+      const mix = (a, b, t) => a + (b - a) * t;
+      const easeInOut = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const easeGlide = (t) => 1 - Math.pow(1 - clamp(t), 3) * (1 - .25 * clamp(t));
+      const easeBack = (t) => { const c1 = 1.15; const c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+      const lerpPose = (a, b, t) => ({ x: mix(a.x,b.x,t), y: mix(a.y,b.y,t), r: mix(a.r,b.r,t), s: mix(a.s,b.s,t), o: mix(a.o,b.o,t) });
+
+      let W = innerWidth, H = innerHeight, mobile = mobileQuery();
+      let sy = scrollY, targetScroll = scrollY, lastFrame = performance.now(), lastWheel = 0;
+      let skyUnlocked = false, skyProgress = 0, wheelFinishedAt = 0, settledFrames = 0;
+      let introStart = performance.now();
+      let lastP = 0, manifestoWasActive = false;
+      const chars = 'Tides in Motion'.split('');
+      const iconRows = {
+        plane: ['........k','......kkb','....kkwkb','..kkwwkb.','kkwwwkbb.','..kkkbb..','....kb...','....k....','.........'],
+        shell: ['...kkk...','..kbwbk..','.kbwbwbk.','kbwbwbwbk','kwbwbwbwk','.kbwbwbk.','..kbbbk..','...kkk...','.........'],
+        boat: ['....k....','....kb...','....kbb..','...wkbbb.','..wwkbbb.','....k....','kkkkkkkkk','.kpppppk.','..kkkkk..'],
+        lighthouse: ['...kkk...','..kbbbk..','...kwk...','...kbk...','...kwk...','...kbk...','..kwwwk..','..kbbbk..','.kkkkkkk.'],
+        fish: ['.........','...kkk..k','..kbbbkkk','.kbwbbbbk','kbbbbbkkk','.kbbbbk.k','..kkkk...','.........','.........'],
+        wave: ['.........','...kkk...','..kbbbk..','.kbwwbbk.','kbw..kbbk','kb....kbk','bbbbbbbbb','kkkkkkkkk','.........'],
+        sun: ['....p....','.p..k..p.','...kpk...','..kpppk..','pkpppppkp','..kpppk..','...kpk...','.p..k..p.','....p....']
+      };
+      const colors = { k:'#1F2430', b:'#7DA3BB', w:'#FFFFFF', p:'#DDAD95' };
+      const iconOrder = ['plane','shell','boat','lighthouse','fish','wave','sun'];
+      function iconSvg(name) {
+        const rows = iconRows[name];
+        let rects = '';
+        rows.forEach((row,y) => [...row].forEach((cell,x) => { if (cell !== '.') rects += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${colors[cell]}"/>`; }));
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true">${rects}</svg>`;
+      }
+      function makeSprite(el, url, box, width = 1000) {
+        const [x0,y0,x1,y1] = box, dx = x1-x0, dy = y1-y0;
+        el.style.backgroundImage = `url("${url}")`;
+        el.style.backgroundSize = `${100/dx}% ${100/dy}%`;
+        el.style.backgroundPosition = `${dx === 1 ? 0 : x0/(1-dx)*100}% ${dy === 1 ? 0 : y0/(1-dy)*100}%`;
+      }
+      function makeCard(el, file, cell) {
+        el.style.backgroundImage = `url("${proxy(file, 900)}")`;
+        el.style.backgroundPosition = `${cell[1] ? '100%' : '0%'} ${cell[0] ? '100%' : '0%'}`;
+      }
+      const cardSpec = [
+        [files.gridB,[1,1]],[files.gridA,[0,1]],[files.gridA,[1,0]],[files.gridA,[1,1]],
+        [files.gridB,[0,0]],[files.gridB,[0,1]],[files.gridC,[0,1]],[files.gridC,[0,0]],
+        [files.gridB,[1,0]],[files.gridA,[0,0]],[files.gridC,[1,0]],[files.gridC,[1,1]]
+      ];
+      const cards = cardSpec.map(([file,cell], i) => {
+        const el = document.createElement('div');
+        el.className = 'card';
+        el.setAttribute('aria-hidden','true');
+        makeCard(el,file,cell);
+        cardsLayer.appendChild(el);
+        return { el, i, pose: {x:W/2,y:H/2,r:0,s:1,o:0}, target:null };
+      });
+
+      function setScaleVars() {
+        W = innerWidth; H = innerHeight; mobile = mobileQuery();
+        const u = Math.min(W/1440, H/800);
+        const n = mobile ? Math.min(1, W/560) : Math.max(W/1440, .62, Math.min(1.25, W/1440));
+        const hfs = mobile ? Math.min(W*.12, H*.09) : Math.min(W*.074, H*.135);
+        const pfs = mobile ? Math.min(W*.085, 40) : Math.min(W*.0335, H*.062);
+        const sfs = mobile ? Math.min(W*.09,44) : Math.min(W*.042,H*.078);
+        const mfs = mobile ? Math.min(W*.11,H*.075) : Math.min(W*.05,H*.1);
+        const camw = mobile ? Math.min(W*.62,H*.34) : Math.min(W*.19,H*.36);
+        const cw = mobile ? Math.min(W*.30,H*.2) : Math.min(W/1440,H/780)*218;
+        root.style.setProperty('--u', u);
+        root.style.setProperty('--n', n);
+        root.style.setProperty('--hfs', `${hfs}px`);
+        root.style.setProperty('--ic', `${hfs*.62}px`);
+        root.style.setProperty('--pfs', `${pfs}px`);
+        root.style.setProperty('--sfs', `${sfs}px`);
+        root.style.setProperty('--mfs', `${mfs}px`);
+        root.style.setProperty('--camw', `${camw}px`);
+        root.style.setProperty('--cw', cw);
+        root.style.setProperty('--nav-h', `${86*n}px`);
+        cards.forEach(({el}) => { el.style.width = `${cw}px`; el.style.height = `${cw*1.32}px`; });
+      }
+      function setupAssets() {
+        skyPlate.style.backgroundImage = `url("${proxy(files.sky, 2400)}")`;
+        camera.style.backgroundImage = `url("${proxy(files.camera, 1400)}")`;
+        const chip = document.querySelector('.process-chip');
+        makeSprite(chip, proxy(files.gridC, 300), [.5,0,1,.5], 300);
+        makeSprite(plane, proxy(files.objects, 1200), [.594,.613,.891,.816], 1200);
+        document.querySelectorAll('.object.shell,.object.shell-small').forEach(el => makeSprite(el, proxy(files.objects, 700), [.109,.121,.430,.422], 700));
+        document.querySelectorAll('.object.pearl,.object.pearl-small').forEach(el => makeSprite(el, proxy(files.objects, 700), [.625,.152,.863,.395], 700));
+        document.querySelectorAll('.object.capsule').forEach(el => makeSprite(el, proxy(files.objects, 700), [.094,.656,.418,.793], 700));
+      }
+      function setupHeadline() {
+        chars.forEach((ch, i) => {
+          const span = document.createElement('span');
+          span.className = 'hero-letter' + (ch === ' ' ? ' space' : '');
+          span.textContent = ch === ' ' ? '\u00a0' : ch;
+          span.dataset.index = i;
+          heroWord.appendChild(span);
+        });
+        iconOrder.forEach((name, i) => {
+          const span = document.createElement('span');
+          span.className = 'pixel-icon';
+          span.innerHTML = iconSvg(name);
+          span.dataset.index = i;
+          iconLayer.appendChild(span);
+        });
+      }
+      function setupManifestoChars() {
+        document.querySelectorAll('.manifesto-item .chars').forEach(el => {
+          if (el.dataset.wrapped) return;
+          let index = 0;
+          const wrapText = node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const fragment = document.createDocumentFragment();
+              [...node.nodeValue].forEach(ch => {
+                const span = document.createElement('span');
+                span.className = 'char' + (ch === ' ' || ch === '\u00a0' ? ' space' : '');
+                span.textContent = ch === ' ' ? '\u00a0' : ch;
+                span.style.setProperty('--char-i', index++);
+                fragment.appendChild(span);
+              });
+              node.replaceWith(fragment);
+            } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('char')) {
+              [...node.childNodes].forEach(wrapText);
+            }
+          };
+          [...el.childNodes].forEach(wrapText);
+          el.dataset.wrapped = 'true';
+        });
+      }
+      function introAnimation(now) {
+        const t = (now - introStart) / 1000;
+        if (t > .15) body.classList.add('intro-ready');
+        const links = [...document.querySelectorAll('.nav-links a')];
+        links.forEach((link,i) => link.style.transitionDelay = `${Math.max(0, .2 + i*.03 - .2)}s`);
+        if (reduced) {
+          document.querySelectorAll('.hero-letter').forEach(s => s.classList.add('visible'));
+          return;
+        }
+        const planeStart = .33, planeEnd = 1.33;
+        const flightPoints = [[-.03,.73],[.04,.71],[.13,.65],[.22,.55],[.31,.44],[.325,.475],[.26,.48],[.215,.45],[.225,.515],[.27,.52]];
+        if (t >= planeStart && t < planeEnd) {
+          plane.classList.add('flying');
+          const q = clamp((t-planeStart)/(1.27-planeStart));
+          const point = catmullRom(flightPoints, q*(flightPoints.length-1));
+          const next = catmullRom(flightPoints, Math.min(flightPoints.length-1,q*(flightPoints.length-1)+.02));
+          const angle = Math.atan2((next[1]-point[1])*H,(next[0]-point[0])*W)*180/Math.PI + 18;
+          plane.style.transform = `translate3d(${point[0]*W}px,${point[1]*H}px,0) rotate(${angle}deg)`;
+        } else if (t >= planeEnd) {
+          plane.classList.remove('flying');
+          plane.style.opacity = '0';
+        }
+        const icons = [...iconLayer.children];
+        icons.forEach((icon,i) => {
+          const showAt = i === 0 ? 1.27 : 1.27 + .03 + (i-1)*.07;
+          if (t >= showAt) icon.classList.add('visible');
+        });
+        const formed = clamp((t - 1.9) / (15*.22), 0, 1);
+        const visibleCount = Math.floor(formed * 15);
+        document.querySelectorAll('.hero-letter').forEach((letter,i) => {
+          if (i < visibleCount) letter.classList.add('visible');
+        });
+        if (visibleCount > 0) icons.forEach((icon,i) => { if (i < Math.ceil(7 * (15-visibleCount)/13)) icon.classList.add('visible'); else icon.classList.remove('visible'); });
+      }
+      function catmullRom(points, t) {
+        const i = Math.floor(t), f = t-i;
+        const p0 = points[Math.max(0,i-1)], p1 = points[Math.min(points.length-1,i)], p2 = points[Math.min(points.length-1,i+1)], p3 = points[Math.min(points.length-1,i+2)];
+        const f2=f*f, f3=f2*f;
+        return [.5*((2*p1[0])+(-p0[0]+p2[0])*f+(2*p0[0]-5*p1[0]+4*p2[0]-p3[0])*f2+(-p0[0]+3*p1[0]-3*p2[0]+p3[0])*f3), .5*((2*p1[1])+(-p0[1]+p2[1])*f+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*f2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*f3)];
+      }
+      function stepFor(R, cw) { return 2 * Math.asin(Math.min(.98, 1.05*cw/(2*R))); }
+      function fanPose(i) {
+        const cw = parseFloat(getComputedStyle(root).getPropertyValue('--cw')) || 218;
+        const R = mobile ? W*1.35 : 1250*W/1440;
+        const step = stepFor(R,cw), theta = (i-2.5)*step;
+        const cx = mobile ? W*.5 : W*.55, cy = H*.86+R;
+        return { x: cx + R*Math.sin(theta) - (mobile?0:W*.02), y: cy - R*Math.cos(theta) + (mobile?cw*.2:0), r: theta*180/Math.PI, s:1, o:1 };
+      }
+      function scatterPose(i) {
+        const desktop = [[.08,.46,-20],[.20,.86,-12],[.80,.84,14],[.38,1.04,-8],[.92,.42,16],[.62,1.04,9]];
+        const phone = [[.06,.60,-20],[.45,.66,12],[.94,.60,16],[.22,.93,-14],[.72,.96,9],[.5,1.3,0]];
+        const arr = mobile ? phone : desktop, p = arr[i] || [.5,1.4,0];
+        let y = p[1]; if (H < 500 && y < .1) y += .08;
+        return { x: W*p[0], y: H*y, r:p[2], s:1, o:1 };
+      }
+      function pilePose(i) {
+        const cw = parseFloat(getComputedStyle(root).getPropertyValue('--cw')) || 218;
+        return { x: W*.5 + ((i%3)-1)*cw*.08, y: H*.62 + (((i*7)%5)-2)*cw*.04, r: (i%2 ? 1 : -1)*(4+i*1.3), s:1, o:1 };
+      }
+      function wheelPose(i, rotation = 0) {
+        const cw = parseFloat(getComputedStyle(root).getPropertyValue('--cw')) || 218;
+        const R = mobile ? W*1.2 : 900*W/1440;
+        const step = stepFor(R,cw), slot = ((i + rotation) % 12) - 5.5, angle = slot*step;
+        const cx = W*.5, cy = H*(mobile?.76:.82)+R;
+        return { x:cx+R*Math.sin(angle), y:cy-R*Math.cos(angle), r:angle*180/Math.PI, s:1, o:Math.abs(angle)<62*Math.PI/180 ? 1 : 0 };
+      }
+      function hiddenPose() { return { x: W*.5, y:H*1.4, r:0, s:.8, o:0 }; }
+      function targetPose(i,p) {
+        let pose;
+        if (p < .004) pose = fanPose(i);
+        else if (p < .085) pose = lerpPose(fanPose(i), scatterPose(i), easeInOut((p-.004)/.081));
+        else if (p < .21) pose = scatterPose(i);
+        else if (p < .31) {
+          const t = easeInOut((p-.21)/.10);
+          pose = i > 5 ? lerpPose(hiddenPose(),pilePose(i),t) : lerpPose(scatterPose(i),pilePose(i),t);
+        } else if (p < .41) pose = lerpPose(pilePose(i),wheelPose(i,0),easeGlide((p-.31)/.10));
+        else if (p < .57) pose = wheelPose(i,-3*easeInOut((p-.41)/.16));
+        else pose = wheelPose(i,-3);
+        if (p < .21 && i > 5) pose = hiddenPose();
+        return pose;
+      }
+      function setCardPose(card, pose) {
+        card.el.style.setProperty('--x', pose.x.toFixed(2));
+        card.el.style.setProperty('--y', pose.y.toFixed(2));
+        card.el.style.setProperty('--r', pose.r.toFixed(2));
+        card.el.style.setProperty('--s', pose.s.toFixed(3));
+        card.el.style.setProperty('--o', pose.o.toFixed(3));
+      }
+      function updateCards(p, dt) {
+        const kBase = reduced ? 1 : 1 - Math.pow(1 - .06, dt/16.67);
+        let allSettled = true;
+        cards.forEach(card => {
+          const target = targetPose(card.i,p); card.target = target;
+          if (reduced || p < .001) card.pose = {...target};
+          else {
+            const w = .055 + (card.i%4)*.008;
+            const k = reduced ? 1 : 1 - Math.pow(1-w, dt/16.67);
+            card.pose.x += (target.x-card.pose.x)*k; card.pose.y += (target.y-card.pose.y)*k; card.pose.r += (target.r-card.pose.r)*k; card.pose.s += (target.s-card.pose.s)*k; card.pose.o += (target.o-card.pose.o)*k;
+          }
+          setCardPose(card,card.pose);
+          if (p > .57 && (Math.abs(card.pose.x-target.x)>3 || Math.abs(card.pose.y-target.y)>3 || Math.abs(card.pose.r-target.r)>1)) allSettled = false;
+        });
+        if (p > .57 && allSettled) settledFrames++; else if (p <= .57) settledFrames = 0;
+        if (p >= .57 && wheelFinishedAt === 0) wheelFinishedAt = performance.now();
+        if (!skyUnlocked && p > .62 && wheelFinishedAt && settledFrames > 4) skyUnlocked = true;
+      }
+      function updateProcess(p) {
+        const fade = clamp((p-.05)/.025);
+        process.style.opacity = fade;
+        process.style.transform = `translateY(${(1-fade)*18}px)`;
+        if (p > .078) process.classList.add('reveal'); else process.classList.remove('reveal');
+      }
+      function loadVideoOnce() {
+        if (reduced || skyVideoEl.src) return;
+        skyVideoEl.src = skyVideo;
+        skyVideoEl.playbackRate = 0.6;
+        skyVideoEl.load();
+        skyVideoEl.play().then(() => skyPanel.classList.add('video-ready')).catch(() => {});
+      }
+      function updateSky(p, now) {
+        const desired = skyUnlocked ? clamp((p-.62)/.12) : 0;
+        const k = reduced ? 1 : 1 - Math.pow(1-.09,16.67/16.67);
+        skyProgress += (desired-skyProgress)*k;
+        if (skyProgress > .01) loadVideoOnce();
+        const insetX = mobile ? mix(29,0,easeInOut(skyProgress)) : mix(41.5,0,easeInOut(skyProgress));
+        const insetY = mobile ? mix(42,0,easeInOut(skyProgress)) : mix(40,0,easeInOut(skyProgress));
+        skyPanel.style.opacity = skyProgress > .005 ? 1 : 0;
+        skyPanel.style.clipPath = `inset(${insetY}% ${insetX}% round ${mix(14,0,skyProgress)}px)`;
+        skyPlate.style.transform = `scale(${mix(1.18,1,skyProgress)})`;
+        skyVideoEl.style.transform = `scale(${mix(1.18,1,skyProgress)})`;
+        const wordDelays = [0,.12,.24,.45,.57,.69,.81];
+        skyWords.forEach((word, i) => {
+          word.style.transitionDelay = `${wordDelays[i]}s`;
+          word.classList.toggle('visible', skyProgress >= .9);
+        });
+        const full = clamp((skyProgress-.9)/.1);
+        const q = easeInOut(clamp((p-.88)/.09));
+        const gatedQ = q * full;
+        const yaw = mix(-10,10,clamp((p-.74)/.14));
+        const bob = Math.sin(now/1000*1.6) * 6 * parseFloat(getComputedStyle(root).getPropertyValue('--n'));
+        camera.style.transform = `translate(-50%,calc(-50% + ${bob}px)) perspective(900px) rotateY(${yaw}deg) scale(${mix(.5,1,skyProgress) * (1 + gatedQ*gatedQ*28)})`;
+        blackout.style.opacity = clamp((gatedQ-.45)/.4);
+      }
+      function revealManifesto(mp) {
+        const active = manifesto.getBoundingClientRect().top < H*.8 && manifesto.getBoundingClientRect().bottom > H*.2;
+        if (active) {
+          const maxTravel = Math.max(0, manifestoTrack.scrollWidth - W*.9);
+          const start = W*(mobile?.08:.06);
+          const x = start - maxTravel*clamp(mp);
+          manifestoTrack.style.setProperty('--track-x', `${x}px`);
+          document.querySelectorAll('.manifesto-item[data-item]').forEach(item => {
+            if (item.classList.contains('is-visible')) return;
+            const rect = item.getBoundingClientRect();
+            if (rect.left < W*(mobile?.92:.86) && rect.right > -80) item.classList.add('is-visible');
+          });
+          body.classList.add('dark-nav');
+          manifestoWasActive = true;
+        }
+        if (!active && !manifestoWasActive) body.classList.remove('dark-nav');
+      }
+      function updateNav(p) {
+        const manifestoTop = manifesto.offsetTop;
+        const inManifesto = scrollY >= manifestoTop - H*.2;
+        body.classList.toggle('dark-nav', inManifesto || p > .985);
+        const current = inManifesto ? 'Contact' : p > .6 ? 'Features' : p > .078 ? 'Our Team' : 'Home';
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('current', a.textContent === current));
+      }
+      function getStoryProgress(scrollValue) {
+        const max = Math.max(1, story.offsetHeight-H);
+        return clamp((scrollValue-story.offsetTop)/max);
+      }
+      function frame(now) {
+        const dt = Math.min(80, now-lastFrame); lastFrame = now;
+        if (!reduced && finePointer && !mobile) sy += (targetScroll-sy)*(1-Math.pow(1-.06,dt/16.67));
+        else sy = scrollY;
+        const p = getStoryProgress(sy);
+        if (p < lastP && p < .05) { process.classList.remove('reveal'); }
+        hero.style.opacity = clamp(1-p/.06);
+        heroHeadline.style.transform = `translateY(${Math.min(0,(p/.06)*-1.35*parseFloat(getComputedStyle(root).getPropertyValue('--hfs')))}px)`;
+        updateCards(p,dt);
+        updateProcess(p);
+        updateSky(p,now);
+        const mp = clamp((scrollY-manifesto.offsetTop)/Math.max(1,manifesto.offsetHeight-H));
+        revealManifesto(mp);
+        updateNav(p);
+        introAnimation(now);
+        lastP = p;
+        requestAnimationFrame(frame);
+      }
+      function jumpTo(value) {
+        let top = 0;
+        if (value === 'manifesto') top = manifesto.offsetTop;
+        else top = story.offsetTop + (story.offsetHeight-H)*parseFloat(value || 0);
+        targetScroll = top;
+        window.scrollTo({top, behavior:'smooth'});
+      }
+      document.querySelectorAll('[data-jump]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); jumpTo(el.dataset.jump); }));
+      addEventListener('wheel', e => {
+        if (reduced || !finePointer || mobile) return;
+        e.preventDefault();
+        const delta = (e.deltaMode === 1 ? e.deltaY*32 : e.deltaY) * .75;
+        targetScroll = clamp(targetScroll+delta,0,document.documentElement.scrollHeight-H);
+        window.scrollTo(0,targetScroll);
+        lastWheel = performance.now();
+      }, {passive:false});
+      addEventListener('scroll', () => { if (reduced || !finePointer || mobile || performance.now()-lastWheel>250) { targetScroll = scrollY; sy = scrollY; } }, {passive:true});
+      addEventListener('resize', () => { setScaleVars(); });
+
+      setupHeadline(); setupManifestoChars(); setScaleVars(); setupAssets();
+      if (reduced) {
+        skyPanel.style.opacity = 1; skyPanel.style.clipPath = 'inset(0)';
+        document.querySelectorAll('.hero-letter').forEach(s => s.classList.add('visible'));
+        cards.forEach(card => setCardPose(card,fanPose(card.i)));
+      }
+      requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
